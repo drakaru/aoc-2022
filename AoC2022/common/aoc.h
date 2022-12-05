@@ -62,7 +62,10 @@ void extract_into(std::string const& csv, std::vector<T>& vec, char delim=',')
 	std::string item;
 	while (getline(source, item, delim)) {
 		T n;
-		std::from_chars(item.data(), item.data() + item.size(), n);
-		vec.push_back(n);
+		auto res = std::from_chars(item.data(), item.data() + item.size(), n);
+		if(res.ec == std::errc{})
+		{
+			vec.push_back(n);
+		}
 	}
 }
