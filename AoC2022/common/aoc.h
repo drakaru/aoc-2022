@@ -11,12 +11,40 @@
 
 #include "aoc_time.h"
 
+
+std::string input_path(std::string const& day)
+{
+	char buf[256];
+	sprintf(buf, "%s.txt", day.c_str());
+	return std::string{buf};
+}
+
 std::ifstream get_input(std::string const& day)
 {
 	char buf[256];
 	sprintf(buf, "%s.txt", day.c_str());
 	return std::ifstream(std::string(buf));
 }
+
+std::vector<char> inputAsCharVector(std::string const& day) {
+	std::string path = input_path(day);
+	std::ifstream file(path, std::ios::ate | std::ios::binary);
+
+	if (!file.is_open()) {
+		throw std::runtime_error("failed to open file!");
+	}
+
+	auto fileSize = file.tellg();
+	std::vector<char> buffer(fileSize);
+
+	file.seekg(0);
+	file.read(buffer.data(), fileSize);
+	file.close();
+
+	return buffer;
+}
+
+
 
 void for_each_line(std::ifstream&& f, std::function<void(std::string const& line)> const& fun)
 {
