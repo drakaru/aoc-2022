@@ -1,7 +1,6 @@
 #include "common/aoc.h"
-
 #include <deque>
-#include <unordered_set>
+#include <array>
 
 struct counter_t {
 	std::deque<char> queue{};
